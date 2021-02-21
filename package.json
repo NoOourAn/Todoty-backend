@@ -1,0 +1,36 @@
+{
+  "name": "project-todolist",
+  "version": "0.0.1",
+  "description": "Simple ToDoApp using NodeJs & MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon .",
+    "debug": "nodemon --inspect .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node",
+    "js",
+    "mongo",
+    "noSql",
+    "express",
+    "ejs",
+    "todo"
+  ],
+  "author": "Nouran Mosaad",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-validation": "^3.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.14",
+    "nodemailer": "^6.4.18"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

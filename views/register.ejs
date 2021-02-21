@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple registration form</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/formStyle.css">
+
+  </head>
+  <body>
+    <div class="main-block">
+      <h1>Registration</h1>
+      <form id="register-form">
+
+        <hr>
+             <div id="result"></div>
+        <!-- username input -->
+        <label id="icon" for="usrname"><i class="fas fa-user"></i></label>
+        <input type="text" name="username" id="usrname" placeholder="Username" required/>
+        <!-- email input -->
+        <label id="icon" for="email"><i class="fas fa-envelope"></i></label>
+        <input type="text" name="email" id="email" placeholder="E-mail" required/>
+        <!-- password input -->
+        <label id="icon" for="password"><i class="fas fa-unlock-alt"></i></label>
+        <input type="password" name="password" id="password" placeholder="Password" required/>
+        
+        <hr>
+        <div class="btn-block">
+          <p>Already have an account? <a href="/api/users/login">Sign In</a>.</p>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+
+
+    <script>
+        const form = document.getElementById("register-form");
+        form.addEventListener("submit",async (e)=>{
+          try {
+            e.preventDefault()
+
+            const {username ,email ,password} = e.target.elements
+    
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+    
+            var raw = JSON.stringify({"username":username.value,"email":email.value,"password":password.value});
+    
+            var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+            };
+    
+            var regResponse = await fetch("/api/users/register",requestOptions).then(response => response.json())
+            
+            var resultdiv = document.getElementById("result")
+            if(regResponse.success){
+              resultdiv.innerHTML = `<div class="alert alert-success" role="alert">
+                                      ${regResponse.msg}
+                                    </div>`
+              form.reset()
+            }else{
+              resultdiv.innerHTML = `<div class="alert alert-danger" role="alert">
+                                      ${regResponse.msg}
+                                    </div>`
+            }
+            
+          }catch (err) {
+            console.error(err)
+          }
+      })
+      
+    </script>
+
+
+  </body>
+</html>
