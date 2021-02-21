@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/TodoApp',
+mongoose.connect(process.env.MONGO_DB || 'mongodb://localhost/TodoApp',
                 {useNewUrlParser: true, 
                  useUnifiedTopology: true , 
                  useFindAndModify:false,

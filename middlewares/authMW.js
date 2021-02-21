@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 module.exports = async (req,res,next)=>{
     try {
       const { authorization } = req.headers;
-      const decodeData = await jwt.verify(authorization, 'Awesomeness');
+      const decodeData = await jwt.verify(authorization, process.env.SecretK);
       req.decodeData = decodeData; ///now we can access the user id in each request
       next();
     } catch (err) {
