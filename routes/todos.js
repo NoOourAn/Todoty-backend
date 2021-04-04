@@ -109,7 +109,7 @@ router.get('/',async (req, res) => {
         if(group && group !== 'null')
             todo = await Todo.findOneAndUpdate({ _id: id ,user: userId}, {title,body,group},{returnOriginal: false})
         else
-            todo = await Todo.findOneAndUpdate({ _id: id ,user: userId}, {title,body},{returnOriginal: false})
+            todo = await Todo.findOneAndUpdate({ _id: id ,user: userId}, {title,body,$unset: {group:1}},{returnOriginal: false})
         
         const obj = {
             success:true,
