@@ -105,7 +105,12 @@ router.get('/',async (req, res) => {
         const {id} = req.params;
         const {title,body,group} = req.body;
         const userId = req.decodeData.id;
-        const todo = await Todo.findOneAndUpdate({ _id: id ,user: userId}, {title,body,group},{returnOriginal: false})
+        let todo;
+        if(group && group !== 'null')
+            todo = await Todo.findOneAndUpdate({ _id: id ,user: userId}, {title,body,group},{returnOriginal: false})
+        else
+            todo = await Todo.findOneAndUpdate({ _id: id ,user: userId}, {title,body},{returnOriginal: false})
+        
         const obj = {
             success:true,
             message:(todo)? "todo edited successfully": "todo not found",
